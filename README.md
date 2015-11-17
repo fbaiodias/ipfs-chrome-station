@@ -5,6 +5,8 @@ Chrome extension that let's have a look at your IPFS node stats
 
 Based on [IPFS station](https://github.com/ipfs/station/) and [react-chrome-extension-boilerplate](https://github.com/jhen0409/react-chrome-extension-boilerplate)
 
+![demo](https://raw.githubusercontent.com/xicombd/ipfs-chrome-station/master/demo.gif)
+
 
 ## Installation
 
