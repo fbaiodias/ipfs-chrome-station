@@ -29,6 +29,7 @@
     "gulp-util": "^3.0.5",
     "gulp-zip": "^3.0.2",
     "jsdom": "^6.5.1",
+    "pre-commit": "^1.1.2",
     "raw-loader": "^0.5.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
@@ -58,5 +59,8 @@
   },
   "standard": {
     "parser": "babel-eslint"
-  }
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }

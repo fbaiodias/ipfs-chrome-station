@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
-import Button from '../../components/view/button'
 import Header from '../../components/view/header'
 
 import 'normalize.css'
