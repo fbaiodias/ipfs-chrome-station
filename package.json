@@ -1,0 +1,62 @@
+{
+  "name": "ipfs-chrome-station",
+  "version": "0.0.0",
+  "description": "Chrome extension that let's have a look at your IPFS node stats",
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "dev": "gulp",
+    "build": "BABEL_ENV=production gulp build",
+    "compress": "npm run build && gulp compress",
+    "clean": "rm -rf build/ && rm -rf dev/ && rm -f archive.zip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xicombd/ipfs-pocket"
+  },
+  "homepage": "https://github.com/xicombd/ipfs-chrome-station",
+  "author": "Francisco Dias <francisco@baiodias.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-core": "^5.8.22",
+    "babel-eslint": "^4.1.5",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-react-transform": "^1.1.1",
+    "chromedriver": "^2.19.0",
+    "gulp": "^3.9.0",
+    "gulp-jade": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.5",
+    "gulp-zip": "^3.0.2",
+    "jsdom": "^6.5.1",
+    "raw-loader": "^0.5.1",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "^1.0.1",
+    "snazzy": "^2.0.1",
+    "standard": "^5.3.1",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  },
+  "dependencies": {
+    "css-box-sizing-border-box": "^0.1.0",
+    "css-loader": "^0.23.0",
+    "file-loader": "^0.8.4",
+    "ipfs-api": "github:xicombd/js-ipfs-api#force-http-protocol",
+    "ipfs-logo": "github:ipfs/logo",
+    "json-loader": "^0.5.3",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "normalize.css": "^3.0.3",
+    "radium": "^0.15.3",
+    "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-file-drop": "^0.1.6",
+    "react-widgets": "^3.1.0"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}

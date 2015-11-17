@@ -1,0 +1,22 @@
+{
+  "version": "0.0.0",
+  "name": "ipfs-station",
+  "manifest_version": 2,
+  "description": "IPFS station",
+  "browser_action": {
+    "default_title": "ipfs-station",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/icon-16.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "http://localhost/"
+  ],
+  "content_security_policy": "default-src 'self' https://localhost:3000; script-src 'self' https://localhost:3000 'unsafe-eval'; connect-src https://localhost:3000 wss://localhost:3000 http://localhost:5001; style-src * 'unsafe-inline'; img-src 'self' https://localhost:3000 data:;"
+}
