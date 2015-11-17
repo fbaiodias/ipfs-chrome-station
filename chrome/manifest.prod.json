@@ -19,5 +19,5 @@
   "permissions": [
     "http://localhost/"
   ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  "content_security_policy": "default-src 'self'; script-src 'self';  connect-src http://localhost:5001; style-src * 'unsafe-inline'; img-src 'self' data:;"
 }

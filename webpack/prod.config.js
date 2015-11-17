@@ -7,7 +7,7 @@ export default {
     background: [ path.join(__dirname, '../chrome/app/background/index') ]
   },
   output: {
-    path: path.join(__dirname, '../build/js'),
+    path: path.join(__dirname, '../build'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },

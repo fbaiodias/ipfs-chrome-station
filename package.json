@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "standard --verbose | snazzy",
     "dev": "gulp",
-    "build": "BABEL_ENV=production gulp build",
+    "build": "npm run clean && BABEL_ENV=production gulp build",
     "compress": "npm run build && gulp compress",
     "clean": "rm -rf build/ && rm -rf dev/ && rm -f archive.zip"
   },
