@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react'
-import FileDrop from 'react-file-drop'
 import Radium from 'radium'
 
 import SimpleStat from '../../components/view/simple-stat'
-// import IconButton from '../../components/view/icon-button'
 import Header from '../../components/view/header'
 import Icon from '../../components/view/icon'
 
@@ -86,9 +84,6 @@ export default class ProfileScreen extends Component {
 
     return (
       <div style={styles.wrapper}>
-        <FileDrop
-          onDrop={this._onFileDrop}
-          />
         <Header onCloseClick={this.props.onCloseClick}/>
         <div style={styles.image}>
           <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
