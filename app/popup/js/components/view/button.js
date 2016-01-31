@@ -7,12 +7,12 @@ export default class Button extends Component {
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
     style: PropTypes.object
-  }
+  };
 
   static defaultProps = {
     onClick () {},
     style: {}
-  }
+  };
 
   render () {
     const styles = {

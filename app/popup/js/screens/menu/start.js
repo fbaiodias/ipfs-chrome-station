@@ -14,12 +14,12 @@ export default class StartScreen extends Component {
   static propTypes = {
     onStartClick: PropTypes.func,
     onCloseClick: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     onStartClick () {},
     onCloseClick () {}
-  }
+  };
 
   render () {
     const styles = {

@@ -3,7 +3,7 @@ import webpack from 'webpack'
 
 const port = 3000
 const entry = [
-  `webpack-dev-server/client?https://localhost:${port}`,
+  `webpack-dev-server/client?http://localhost:${port}`,
   'webpack/hot/only-dev-server'
 ]
 
@@ -17,28 +17,35 @@ export default {
     path: path.join(__dirname, '../dev/js'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js',
-    publicPath: `https://localhost:${port}/js/`
+    publicPath: `http://localhost:${port}/js/`
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.IgnorePlugin(/[^/]+\/[\S]+.prod$/),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true
+      'process.env': {
+        DEVTOOLS: !!process.env.DEVTOOLS || true,
+        DEVTOOLS_EXT: !!process.env.DEVTOOLS_EXT
+      }
     })
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.json']
   },
   module: {
     loaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'babel',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          presets: [ 'react-hmre' ]
+        }
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json'
       },
       {
         test: /\.css$/,
@@ -62,9 +69,13 @@ export default {
       }
     ]
   },
+  externals: {
+    fs: '{}',
+    net: '{}',
+    tls: '{}',
+    'require-dir': '{}'
+  },
   node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
+    Buffer: true
   }
 }

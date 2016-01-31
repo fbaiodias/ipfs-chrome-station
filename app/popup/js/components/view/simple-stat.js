@@ -7,11 +7,11 @@ export default class SimpleStat extends Component {
     name: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
     color: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     color: '#50d2c2'
-  }
+  };
 
   render () {
     const styles = {

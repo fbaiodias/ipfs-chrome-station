@@ -10,18 +10,18 @@ export default class DirectoryInput extends Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
     disabled: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     placeholder: '',
     disabled: false
-  }
+  };
 
   _onClick = e => {
     e.preventDefault()
 
     ipc.send('setup-browse-path')
-  }
+  };
 
   render () {
     const styles = {

@@ -24,7 +24,7 @@ export default class Menu extends Component {
     connected: false,
     version: null,
     stats: {}
-  }
+  };
 
   constructor (props) {
     super(props)

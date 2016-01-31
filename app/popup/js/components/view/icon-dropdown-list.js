@@ -11,12 +11,12 @@ export default class IconDropdownList extends Component {
     data: PropTypes.array,
     onChange: PropTypes.func,
     defaultValue: PropTypes.any
-  }
+  };
 
   static defaultProps = {
     data: [],
     onChange () {}
-  }
+  };
 
   render () {
     const styles = {

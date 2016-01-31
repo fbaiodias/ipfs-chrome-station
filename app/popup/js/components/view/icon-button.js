@@ -10,7 +10,7 @@ export default class IconButton extends Component {
     onClick: PropTypes.func,
     style: PropTypes.object,
     iconStyle: PropTypes.object
-  }
+  };
 
   static defaultProps = {
     name: null,
@@ -18,7 +18,7 @@ export default class IconButton extends Component {
     onClick () {},
     style: {},
     iconStyle: {}
-  }
+  };
 
   render () {
     const styles = {

@@ -22,7 +22,7 @@ export default class ProfileScreen extends Component {
     onBrowserClick: PropTypes.func,
     onSettingsClick: PropTypes.func,
     onCloseClick: PropTypes.func
-  }
+  };
 
   static defaultProps = {
     peers: 0,
@@ -32,14 +32,14 @@ export default class ProfileScreen extends Component {
     onBrowserClick () {},
     onSettingsClick () {},
     onCloseClick () {}
-  }
+  };
 
   _onFileDrop = (files, event) => {
     const filesArray = []
     for (let i = 0; i < files.length; i++) {
       filesArray.push(files[i].path)
     }
-  }
+  };
 
   render () {
     const styles = {

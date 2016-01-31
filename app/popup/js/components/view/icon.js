@@ -6,7 +6,7 @@ export default class Icon extends Component {
 
   static propTypes = {
     name: PropTypes.string.isRequired
-  }
+  };
 
   render () {
     return (
