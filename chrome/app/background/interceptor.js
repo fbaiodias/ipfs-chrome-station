@@ -1,14 +1,8 @@
 /* global chrome, localStorage  */
 import url from 'url'
+import { url as isIPFSUrl } from 'is-ipfs'
 
-// TODO: replace regex with 3rd party library provided by IPFS community
-// Ref. https://github.com/ipfs/notes/issues/92#issuecomment-172135885
-const IPFS_RESOURCE = /^https?:\/\/[^\/]+\/ip(f|n)s\//
 const IPFS_LOCAL_HOST = 'localhost:8080'
-
-function isIPFSUrl (_url) {
-  return _url.match(IPFS_RESOURCE)
-}
 
 function interceptor (details) {
   var parsedUrl = url.parse(details.url)
