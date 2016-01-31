@@ -76,6 +76,7 @@ export default {
     'require-dir': '{}'
   },
   node: {
-    Buffer: true
+    Buffer: true,
+    url: true
   }
 }

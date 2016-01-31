@@ -16,7 +16,11 @@
     "page": "background.html"
   },
   "permissions": [
-    "http://localhost/"
+    "webRequest",
+    "webRequestBlocking",
+    "tabs",
+    "http://localhost/",
+    "<all_urls>"
   ],
   "content_security_policy": "default-src 'self' http://localhost:3000; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000 http://localhost:5001; style-src * 'unsafe-inline'; img-src 'self' http://localhost:3000 data:;"
 }

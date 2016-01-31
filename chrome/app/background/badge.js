@@ -16,16 +16,14 @@ function updatePeersCount () {
 
     const parsed = JSON.parse(res)
 
-    console.log(parsed)
-
     chrome.browserAction.setBadgeBackgroundColor({ color: '#0000ff' })
     chrome.browserAction.setBadgeText({ text: parsed.Strings.length.toString() })
   })
 
-  ipfs.cat(['QmPQN7bUeCsYpLzkcNRWicE6C2o4XAG96x2AANNRz9J3aL'], (err, res) => {
-    if (err || !res) return console.error(err)
-    console.log('got pic')
-  })
+  // ipfs.cat(['QmPQN7bUeCsYpLzkcNRWicE6C2o4XAG96x2AANNRz9J3aL'], (err, res) => {
+  //   if (err || !res) return console.error(err)
+  //   console.log('got pic')
+  // })
 }
 
 updatePeersCount()
