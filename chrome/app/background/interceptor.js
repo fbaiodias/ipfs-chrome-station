@@ -1,5 +1,5 @@
 /* global chrome  */
-const url = require('url')
+import url from 'url'
 
 // TODO: replace regex with 3rd party library provided by IPFS community
 // Ref. https://github.com/ipfs/notes/issues/92#issuecomment-172135885

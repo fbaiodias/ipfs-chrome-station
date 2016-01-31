@@ -76,11 +76,9 @@ export default class Menu extends Component {
       return
     }
 
-    const parsed = JSON.parse(res)
-
     this.setState({
       status: RUNNING,
-      peers: parsed.Strings.length
+      peers: res.Strings.length
     })
   }
 
