@@ -1,3 +1,4 @@
+/* global chrome, localStorage */
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 
@@ -13,9 +14,11 @@ const STOPPED = 'stopped'
 
 const UPDATE_INTERVAL = 2000
 
+const WEB_UI_URL = 'http://localhost:5001/ipfs/QmRyWyKWmphamkMRnJVjUTzSFSAAZowYP4rnbgnfMXC9Mr'
+
 import ipfsAPI from 'ipfs-api'
 
-const ipfs = window.ipfs = ipfsAPI('localhost', '5001')
+const ipfs = window.ipfs = ipfsAPI()
 
 export default class Menu extends Component {
 
@@ -33,6 +36,10 @@ export default class Menu extends Component {
 
     this.handleIpfsId = this.handleIpfsId.bind(this)
     this.handleIpfsPeers = this.handleIpfsPeers.bind(this)
+    this.handleRedirectClick = this.handleRedirectClick.bind(this)
+    this.handleWebUIClick = this.handleWebUIClick.bind(this)
+
+    this.state.redirecting = (localStorage.getItem('redirecting') === 'true')
   }
 
   componentDidMount () {
@@ -82,6 +89,19 @@ export default class Menu extends Component {
     })
   }
 
+  handleRedirectClick () {
+    const redirecting = !(localStorage.getItem('redirecting') === 'true')
+    localStorage.setItem('redirecting', redirecting)
+
+    this.setState({
+      redirecting
+    })
+  }
+
+  handleWebUIClick () {
+    chrome.tabs.create({ url: WEB_UI_URL })
+  }
+
   getScreen () {
     switch (this.state.status) {
       case RUNNING:
@@ -90,6 +110,9 @@ export default class Menu extends Component {
             key='profile-screen'
             peers={this.state.peers}
             location={this.state.location}
+            redirecting={this.state.redirecting}
+            onRedirectClick={this.handleRedirectClick}
+            onWebUIClick={this.handleWebUIClick}
             />
         )
       case INITIALIZING:
