@@ -29,6 +29,7 @@ export default class Menu extends Component {
     this.handleStorageChange = this.handleStorageChange.bind(this)
     this.handleRedirectClick = this.handleRedirectClick.bind(this)
     this.handleWebUIClick = this.handleWebUIClick.bind(this)
+    this.handleOptionsClick = this.handleOptionsClick.bind(this)
 
     chrome.storage.onChanged.addListener(this.handleStorageChange)
 
@@ -77,6 +78,10 @@ export default class Menu extends Component {
     chrome.tabs.create({ url: WEB_UI_URL })
   }
 
+  handleOptionsClick () {
+    chrome.runtime.openOptionsPage()
+  }
+
   getScreen () {
     switch (this.state.status) {
       case RUNNING:
@@ -86,6 +91,7 @@ export default class Menu extends Component {
             peers={this.state.peersCount}
             location={this.state.location}
             redirecting={this.state.redirecting}
+            onOptionsClick={this.handleOptionsClick}
             onRedirectClick={this.handleRedirectClick}
             onWebUIClick={this.handleWebUIClick}
             />

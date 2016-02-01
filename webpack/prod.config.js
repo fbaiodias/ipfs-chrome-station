@@ -4,7 +4,8 @@ import webpack from 'webpack'
 export default {
   entry: {
     popup: [ path.join(__dirname, '../chrome/app/popup/index') ],
-    background: [ path.join(__dirname, '../chrome/app/background/index') ]
+    background: [ path.join(__dirname, '../chrome/app/background/index') ],
+    options: [ path.join(__dirname, '../chrome/app/options/index') ]
   },
   output: {
     path: path.join(__dirname, '../build'),

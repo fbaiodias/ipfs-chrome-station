@@ -1,3 +1,4 @@
+require('./storage-defaults')
 require('./badge')
 require('./interceptor')
-require('./subscribe')
+require('./api')

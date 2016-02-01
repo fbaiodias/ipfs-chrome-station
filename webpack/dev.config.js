@@ -11,7 +11,8 @@ export default {
   devtool: 'source-map',
   entry: {
     popup: [ path.join(__dirname, '../chrome/app/popup/index'), ...entry ],
-    background: [ path.join(__dirname, '../chrome/app/background/index'), ...entry ]
+    background: [ path.join(__dirname, '../chrome/app/background/index'), ...entry ],
+    options: [ path.join(__dirname, '../chrome/app/options/index'), ...entry ]
   },
   output: {
     path: path.join(__dirname, '../dev/js'),
