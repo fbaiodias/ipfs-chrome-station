@@ -59,7 +59,7 @@ export default class StartScreen extends Component {
             <p>Oh snap, it looks like your node<br/>
             is not running yet.</p>
             <p>Please start it by running<br/>
-            <code>API_ORIGIN="*" ipfs daemon</code><br/>
+            <code>ipfs daemon</code><br/>
             on your terminal.</p>
           </div>
         </div>

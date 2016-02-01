@@ -1,10 +1,10 @@
 {
-  "version": "0.0.1",
-  "name": "ipfs-station",
+  "version": "0.0.2",
+  "name": "IPFS Station",
   "manifest_version": 2,
-  "description": "IPFS station",
+  "description": "This extension let's you access IPFS urls seamlessly from your local IPFS node, and take a look at its stats.",
   "browser_action": {
-    "default_title": "ipfs-station",
+    "default_title": "IPFS Station",
     "default_popup": "popup.html"
   },
   "icons": {

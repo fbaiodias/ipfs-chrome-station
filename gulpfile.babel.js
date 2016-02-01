@@ -38,8 +38,7 @@ gulp.task('webpack-dev-server', () => {
   let myConfig = Object.create(devConfig)
   new WebpackDevServer(webpack(myConfig, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack', err)
-    gutil.log('Please allow `http://localhost:3000` connections in Google Chrome')
-    gutil.log('and load unpacked extensions with `./dev` folder.  (see https://developer.chrome.com/extensions/getstarted#unpacked)')
+    gutil.log('Please load the unpacked extension with `./dev` folder.\n  (see https://developer.chrome.com/extensions/getstarted#unpacked)')
   }), {
     publicPath: myConfig.output.publicPath,
     stats: {colors: true},
