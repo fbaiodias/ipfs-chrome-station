@@ -15,13 +15,16 @@
   "background": {
     "page": "background.html"
   },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "permissions": [
     "webRequest",
     "webRequestBlocking",
     "tabs",
     "storage",
-    "http://localhost/",
     "<all_urls>"
   ],
-  "content_security_policy": "default-src 'self' http://localhost:3000; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000 http://localhost:5001; style-src * 'unsafe-inline'; img-src 'self' http://localhost:3000 data:;"
+  "content_security_policy": "default-src 'self' http://localhost:3000; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src *; style-src * 'unsafe-inline'; img-src 'self' http://localhost:3000 data:;"
 }

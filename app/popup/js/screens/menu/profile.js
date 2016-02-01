@@ -20,17 +20,16 @@ export default class ProfileScreen extends Component {
     location: PropTypes.string,
     redirecting: PropTypes.bool,
     onRedirectClick: PropTypes.func,
-    onWebUIClick: PropTypes.func
+    onWebUIClick: PropTypes.func,
+    onOptionsClick: PropTypes.func
   };
 
   static defaultProps = {
     peers: 0,
     location: '',
-    onStopClick () {},
-    onConsoleClick () {},
-    onBrowserClick () {},
-    onSettingsClick () {},
-    onCloseClick () {}
+    onRedirectClick () {},
+    onWebUIClick () {},
+    onOptionsClick () {}
   };
 
   render () {
@@ -91,6 +90,11 @@ export default class ProfileScreen extends Component {
           />
         </div>
         <div style={styles.footer}>
+          <IconButton
+            name='Options'
+            icon='gear'
+            onClick={this.props.onOptionsClick}
+            />
           <IconButton
             name='WebUI'
             icon='window'

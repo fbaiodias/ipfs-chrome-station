@@ -2,16 +2,19 @@
 import url from 'url'
 import { url as isIPFSUrl } from 'is-ipfs'
 
-const IPFS_LOCAL_HOST = 'localhost:8080'
+const settingsKeys = ['redirecting', 'host', 'port']
+let settings = {}
 
 function interceptor (details) {
   var parsedUrl = url.parse(details.url)
-  if (isIPFSUrl(details.url) && parsedUrl.host.indexOf('localhost') === -1) {
+  if (isIPFSUrl(details.url) && parsedUrl.host.indexOf(settings.host) === -1) {
+    const node = `${settings.host}:${settings.port}`
+
     parsedUrl.protocol = 'http:'
-    parsedUrl.host = IPFS_LOCAL_HOST
-    parsedUrl.hostname = IPFS_LOCAL_HOST
+    parsedUrl.host = node
+    parsedUrl.hostname = node
     const localUrl = url.format(parsedUrl)
-    console.log('redirected', details.url, 'to', IPFS_LOCAL_HOST)
+    console.log('redirected', details.url, 'to', node)
     return { redirectUrl: localUrl }
   }
   return
@@ -33,6 +36,11 @@ function stopInterceptor () {
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   Object.keys(changes).forEach(key => {
     var storageChange = changes[key]
+
+    if (settingsKeys.indexOf(key) !== -1) {
+      settings[key] = storageChange.newValue
+    }
+
     if (key === 'redirecting') {
       if (storageChange.newValue === true) {
         startInterceptor()
@@ -53,11 +61,12 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
   })
 })
 
-chrome.storage.sync.get('redirecting', ({ redirecting }) => {
-  console.log('get redirecting', redirecting)
+chrome.storage.sync.get(settingsKeys, (result) => {
+  settings = result
+
+  const { redirecting } = settings
   if (redirecting === true) {
     chrome.storage.local.get('running', ({ running }) => {
-      console.log('get running', running)
       if (running === true) {
         startInterceptor()
       }

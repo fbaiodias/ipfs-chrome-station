@@ -15,13 +15,16 @@
   "background": {
     "page": "background.html"
   },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "permissions": [
     "webRequest",
     "webRequestBlocking",
     "tabs",
     "storage",
-    "http://localhost/",
     "<all_urls>"
   ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; connect-src http://localhost:5001; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  "content_security_policy": "default-src 'self'; script-src 'self'; connect-src *; style-src * 'unsafe-inline'; img-src 'self' data:;"
 }
