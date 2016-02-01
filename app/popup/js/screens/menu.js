@@ -1,4 +1,4 @@
-/* global chrome, localStorage */
+/* global chrome */
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 
@@ -12,13 +12,7 @@ const INITIALIZING = 'initializing'
 const RUNNING = 'running'
 const STOPPED = 'stopped'
 
-const UPDATE_INTERVAL = 2000
-
 const WEB_UI_URL = 'http://localhost:5001/ipfs/QmRyWyKWmphamkMRnJVjUTzSFSAAZowYP4rnbgnfMXC9Mr'
-
-import ipfsAPI from 'ipfs-api'
-
-const ipfs = window.ipfs = ipfsAPI()
 
 export default class Menu extends Component {
 
@@ -32,68 +26,49 @@ export default class Menu extends Component {
   constructor (props) {
     super(props)
 
-    this.updateStats = this.updateStats.bind(this)
-
-    this.handleIpfsId = this.handleIpfsId.bind(this)
-    this.handleIpfsPeers = this.handleIpfsPeers.bind(this)
+    this.handleStorageChange = this.handleStorageChange.bind(this)
     this.handleRedirectClick = this.handleRedirectClick.bind(this)
     this.handleWebUIClick = this.handleWebUIClick.bind(this)
 
-    this.state.redirecting = (localStorage.getItem('redirecting') === 'true')
-  }
+    chrome.storage.onChanged.addListener(this.handleStorageChange)
 
-  componentDidMount () {
-    ipfs.id(this.handleIpfsId)
-
-    this.updateStats()
-
-    setInterval(() => {
-      this.updateStats()
-    }, UPDATE_INTERVAL)
-  }
-
-  updateStats () {
-    ipfs.swarm.peers(this.handleIpfsPeers)
-  }
-
-  handleIpfsId (err, res) {
-    if (err) {
-      console.error(err)
+    chrome.storage.local.get(null, ({ running, peersCount }) => {
       this.setState({
-        status: STOPPED
+        peersCount,
+        status: running ? RUNNING : STOPPED
       })
+    })
 
-      return
-    }
-
-    this.setState({
-      status: RUNNING,
-      id: res.ID,
-      version: res.AgentVersion,
-      protocolVersion: res.ProtocolVersion
+    chrome.storage.sync.get(null, ({ redirecting }) => {
+      this.setState({
+        redirecting
+      })
     })
   }
 
-  handleIpfsPeers (err, res) {
-    if (err) {
-      console.log('error getting peers', err)
-      this.setState({
-        status: STOPPED
-      })
-      return
-    }
+  handleStorageChange (changes, namespace) {
+    const nextState = {}
+    Object.keys(changes).forEach(key => {
+      const storageChange = changes[key]
 
-    this.setState({
-      status: RUNNING,
-      peers: res.Strings.length
+      if (key === 'redirecting') {
+        nextState.redirecting = storageChange.newValue
+      } else if (key === 'peersCount') {
+        nextState.peersCount = storageChange.newValue
+      } else if (key === 'running') {
+        nextState.status = storageChange.newValue ? RUNNING : STOPPED
+      }
     })
+
+    console.log('nextState', nextState)
+
+    this.setState(nextState)
   }
 
   handleRedirectClick () {
-    const redirecting = !(localStorage.getItem('redirecting') === 'true')
-    localStorage.setItem('redirecting', redirecting)
+    const redirecting = !this.state.redirecting
 
-    this.setState({
+    chrome.storage.sync.set({
       redirecting
     })
   }
@@ -108,7 +83,7 @@ export default class Menu extends Component {
         return (
           <ProfileScreen
             key='profile-screen'
-            peers={this.state.peers}
+            peers={this.state.peersCount}
             location={this.state.location}
             redirecting={this.state.redirecting}
             onRedirectClick={this.handleRedirectClick}

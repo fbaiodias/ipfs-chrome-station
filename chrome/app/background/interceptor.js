@@ -1,4 +1,4 @@
-/* global chrome, localStorage  */
+/* global chrome  */
 import url from 'url'
 import { url as isIPFSUrl } from 'is-ipfs'
 
@@ -28,17 +28,20 @@ function stopInterceptor () {
   chrome.webRequest.onBeforeRequest.removeListener(interceptor)
 }
 
-window.addEventListener('storage', (e) => {
-  console.log('storage changed', e.key, e.newValue)
-  if (e.key === 'redirecting') {
-    if (e.newValue === 'true') {
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  Object.keys(changes).forEach(key => {
+    var storageChange = changes[key]
+    if (storageChange.newValue === true) {
       startInterceptor()
     } else {
       stopInterceptor()
     }
-  }
+  })
 })
 
-if (localStorage.getItem('redirecting') === 'true') {
-  startInterceptor()
-}
+chrome.storage.sync.get('redirecting', function (result) {
+  console.log('get redirecting', result)
+  if (result.redirecting === true) {
+    startInterceptor()
+  }
+})

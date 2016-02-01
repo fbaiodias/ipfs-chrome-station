@@ -19,6 +19,7 @@
     "webRequest",
     "webRequestBlocking",
     "tabs",
+    "storage",
     "http://localhost/",
     "<all_urls>"
   ],
