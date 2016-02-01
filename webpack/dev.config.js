@@ -8,7 +8,7 @@ const entry = [
 ]
 
 export default {
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'source-map',
   entry: {
     popup: [ path.join(__dirname, '../chrome/app/popup/index'), ...entry ],
     background: [ path.join(__dirname, '../chrome/app/background/index'), ...entry ]
@@ -31,16 +31,33 @@ export default {
     })
   ],
   resolve: {
+    modulesDirectories: [
+      'node_modules'
+    ],
+    alias: {
+      http: 'stream-http',
+      https: 'https-browserify'
+    },
     extensions: ['', '.js', '.jsx', '.json']
   },
   module: {
     loaders: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel',
         exclude: /node_modules/,
+        loader: 'babel',
         query: {
-          presets: [ 'react-hmre' ]
+          presets: ['react-hmre'],
+          plugins: ['transform-runtime']
+        }
+      },
+      {
+        test: /\.js$/,
+        include: /node_modules\/(hoek|qs|wreck|boom)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015'],
+          plugins: ['transform-runtime']
         }
       },
       {
@@ -70,12 +87,11 @@ export default {
     ]
   },
   externals: {
-    fs: '{}',
     net: '{}',
+    fs: '{}',
     tls: '{}',
+    console: '{}',
     'require-dir': '{}'
   },
-  node: {
-    Buffer: true
-  }
+  timeout: 60000
 }

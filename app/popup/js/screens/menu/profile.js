@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
 
 import SimpleStat from '../../components/view/simple-stat'
+import IconButton from '../../components/view/icon-button'
 import Header from '../../components/view/header'
 import Icon from '../../components/view/icon'
 
@@ -17,11 +18,9 @@ export default class ProfileScreen extends Component {
   static propTypes = {
     peers: PropTypes.number,
     location: PropTypes.string,
-    onStopClick: PropTypes.func,
-    onConsoleClick: PropTypes.func,
-    onBrowserClick: PropTypes.func,
-    onSettingsClick: PropTypes.func,
-    onCloseClick: PropTypes.func
+    redirecting: PropTypes.bool,
+    onRedirectClick: PropTypes.func,
+    onWebUIClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -32,13 +31,6 @@ export default class ProfileScreen extends Component {
     onBrowserClick () {},
     onSettingsClick () {},
     onCloseClick () {}
-  };
-
-  _onFileDrop = (files, event) => {
-    const filesArray = []
-    for (let i = 0; i < files.length; i++) {
-      filesArray.push(files[i].path)
-    }
   };
 
   render () {
@@ -84,7 +76,7 @@ export default class ProfileScreen extends Component {
 
     return (
       <div style={styles.wrapper}>
-        <Header onCloseClick={this.props.onCloseClick}/>
+        <Header />
         <div style={styles.image}>
           <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
           <div style={{margin: '0 auto'}}>
@@ -99,6 +91,16 @@ export default class ProfileScreen extends Component {
           />
         </div>
         <div style={styles.footer}>
+          <IconButton
+            name='WebUI'
+            icon='window'
+            onClick={this.props.onWebUIClick}
+            />
+          <IconButton
+            name={this.props.redirecting ? 'Stop redirecting' : 'Start redirecting'}
+            icon={this.props.redirecting ? 'media-stop' : 'media-play'}
+            onClick={this.props.onRedirectClick}
+            />
         </div>
       </div>
     )
