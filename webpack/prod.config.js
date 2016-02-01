@@ -15,13 +15,26 @@ export default {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
-      },
-      __DEVELOPMENT__: false
+      }
     }),
+    new webpack.IgnorePlugin(/[^/]+\/[\S]+.dev$/),
     new webpack.optimize.DedupePlugin()
+    // new webpack.optimize.UglifyJsPlugin({
+    //   comments: false,
+    //   compressor: {
+    //     warnings: false
+    //   }
+    // })
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    modulesDirectories: [
+      'node_modules'
+    ],
+    alias: {
+      http: 'stream-http',
+      https: 'https-browserify'
+    },
+    extensions: ['', '.js', '.jsx', '.json']
   },
   module: {
     loaders: [
@@ -29,6 +42,11 @@ export default {
         test: /\.(js|jsx)$/,
         loader: 'babel',
         exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        include: /node_modules\/(hoek|qs|wreck|boom)/,
+        loader: 'babel'
       },
       {
         test: /\.json$/,
@@ -56,9 +74,12 @@ export default {
       }
     ]
   },
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  }
+  externals: {
+    net: '{}',
+    fs: '{}',
+    tls: '{}',
+    console: '{}',
+    'require-dir': '{}'
+  },
+  timeout: 60000
 }
