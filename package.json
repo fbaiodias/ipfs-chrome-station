@@ -1,6 +1,6 @@
 {
   "name": "ipfs-chrome-station",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Chrome extension that let's have a look at your IPFS node stats",
   "scripts": {
     "lint": "standard --verbose | snazzy",
