@@ -23,7 +23,7 @@ export default class IconButton extends Component {
   render () {
     const styles = {
       button: {
-        color: 'rgba(255, 255, 255, 0.8)',
+        opacity: 0.8,
         background: 'none',
         border: 'none',
         flex: '1',
@@ -36,7 +36,7 @@ export default class IconButton extends Component {
           outline: 'none'
         },
         ':hover': {
-          color: 'rgba(255, 255, 255, 1)',
+          opacity: 1,
           cursor: 'pointer'
         },
         ...this.props.style
