@@ -7,6 +7,21 @@ let settings = {}
 let ipfs
 let updateInterval
 
+function connectToAPI () {
+  ipfs = ipfsAPI(settings.host, settings.apiPort)
+  console.log('changed api to', settings.host, settings.apiPort)
+
+  ipfs.id((err, peer) => {
+    if (err) return
+
+    chrome.storage.local.set({
+      id: peer.Id,
+      agentVersion: peer.AgentVersion,
+      protocolVersion: peer.ProtocolVersion
+    })
+  })
+}
+
 function updatePeersCount () {
   ipfs.swarm.peers((err, res) => {
     if (err) {
@@ -43,18 +58,15 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
   })
 
   if (needsRestart) {
-    ipfs = ipfsAPI(settings.host, settings.apiPort)
-    console.log('changed api to', settings.host, settings.apiPort)
+    connectToAPI()
   }
 })
 
 chrome.storage.sync.get(settingsKeys, (result) => {
   settings = result
 
-  const { host, apiPort, apiInterval } = settings
-
-  ipfs = ipfsAPI(host, apiPort)
+  connectToAPI()
 
   updatePeersCount()
-  updateInterval = setInterval(updatePeersCount, apiInterval)
+  updateInterval = setInterval(updatePeersCount, settings.apiInterval)
 })

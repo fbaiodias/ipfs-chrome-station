@@ -5,6 +5,7 @@ import SimpleStat from '../../components/view/simple-stat'
 import IconButton from '../../components/view/icon-button'
 import Header from '../../components/view/header'
 import Icon from '../../components/view/icon'
+import Details from '../../components/view/details'
 
 import 'normalize.css'
 import 'css-box-sizing-border-box/index.css'
@@ -19,6 +20,10 @@ export default class ProfileScreen extends Component {
     peers: PropTypes.number,
     location: PropTypes.string,
     redirecting: PropTypes.bool,
+    agentVersion: PropTypes.string,
+    protocolVersion: PropTypes.string,
+    host: PropTypes.string,
+    port: PropTypes.string,
     onRedirectClick: PropTypes.func,
     onWebUIClick: PropTypes.func,
     onOptionsClick: PropTypes.func
@@ -83,6 +88,12 @@ export default class ProfileScreen extends Component {
           </div>
         </div>
         <div style={styles.stats}>
+          <Details
+            agentVersion={this.props.agentVersion}
+            protocolVersion={this.props.protocolVersion}
+            host={this.props.host}
+            port={this.props.port}
+          />
           <SimpleStat
             name='peers'
             value={this.props.peers}

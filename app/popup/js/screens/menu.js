@@ -33,17 +33,15 @@ export default class Menu extends Component {
 
     chrome.storage.onChanged.addListener(this.handleStorageChange)
 
-    chrome.storage.local.get(null, ({ running, peersCount }) => {
+    chrome.storage.local.get(null, (result) => {
       this.setState({
-        peersCount,
-        status: running ? RUNNING : STOPPED
+        ...result,
+        status: result.running ? RUNNING : STOPPED
       })
     })
 
-    chrome.storage.sync.get(null, ({ redirecting }) => {
-      this.setState({
-        redirecting
-      })
+    chrome.storage.sync.get(null, (result) => {
+      this.setState(result)
     })
   }
 
@@ -52,11 +50,9 @@ export default class Menu extends Component {
     Object.keys(changes).forEach(key => {
       const storageChange = changes[key]
 
-      if (key === 'redirecting') {
-        nextState.redirecting = storageChange.newValue
-      } else if (key === 'peersCount') {
-        nextState.peersCount = storageChange.newValue
-      } else if (key === 'running') {
+      nextState[key] = storageChange.newValue
+
+      if (key === 'running') {
         nextState.status = storageChange.newValue ? RUNNING : STOPPED
       }
     })
@@ -88,6 +84,10 @@ export default class Menu extends Component {
         return (
           <ProfileScreen
             key='profile-screen'
+            agentVersion={this.state.agentVersion}
+            protocolVersion={this.state.protocolVersion}
+            host={this.state.host}
+            port={this.state.port}
             peers={this.state.peersCount}
             location={this.state.location}
             redirecting={this.state.redirecting}
