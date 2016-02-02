@@ -23,7 +23,7 @@ export default class ProfileScreen extends Component {
     agentVersion: PropTypes.string,
     protocolVersion: PropTypes.string,
     host: PropTypes.string,
-    port: PropTypes.string,
+    port: PropTypes.number,
     isIpfsPage: PropTypes.bool,
     pageUrl: PropTypes.string,
     pinned: PropTypes.bool,

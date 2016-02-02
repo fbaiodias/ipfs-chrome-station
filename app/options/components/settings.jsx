@@ -27,11 +27,12 @@ export default class Settings extends Component {
     this.setState({ redirecting, host, port, apiPort, apiInterval })
   }
 
-  handleChange (field, { value }) {
-    console.log('change', field, value)
+  handleChange (field, isNumber, { value }) {
     const nextState = {
-      [field]: value
+      [field]: isNumber ? parseInt(value, 10) : value
     }
+
+    console.log('change', nextState)
 
     this.setState(nextState)
   }
@@ -74,7 +75,7 @@ export default class Settings extends Component {
         <div>
           <Toggle
             value={redirecting}
-            onUpdate={this.handleChange.bind(this, 'redirecting')}
+            onUpdate={this.handleChange.bind(this, 'redirecting', false)}
             style={style.toggle.base}
             />
           <label style={style.toggle.label}>Redirecting</label>
@@ -85,22 +86,22 @@ export default class Settings extends Component {
           <TextInput
             value={host}
             placeholder='host'
-            onUpdate={this.handleChange.bind(this, 'host')}
+            onUpdate={this.handleChange.bind(this, 'host', false)}
           />
           <TextInput
             value={port}
             placeholder='port'
-            onUpdate={this.handleChange.bind(this, 'port')}
+            onUpdate={this.handleChange.bind(this, 'port', true)}
           />
           <TextInput
             value={apiPort}
             placeholder='API port'
-            onUpdate={this.handleChange.bind(this, 'apiPort')}
+            onUpdate={this.handleChange.bind(this, 'apiPort', true)}
           />
           <TextInput
             value={apiInterval}
             placeholder='API update interval (ms)'
-            onUpdate={this.handleChange.bind(this, 'apiInterval')}
+            onUpdate={this.handleChange.bind(this, 'apiInterval', true)}
           />
         </div>
 

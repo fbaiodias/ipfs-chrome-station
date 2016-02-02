@@ -7,7 +7,7 @@ export default class Details extends Component {
     agentVersion: PropTypes.string,
     protocolVersion: PropTypes.string,
     host: PropTypes.string,
-    port: PropTypes.string
+    port: PropTypes.number
   };
 
   static defaultProps = {
