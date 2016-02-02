@@ -20,6 +20,10 @@ Based on [react-chrome-extension-boilerplate](https://github.com/jhen0409/react-
   - Toggle redirection to the IPFS node
   - Open IPFS node WebUI
   - Open extension options (more about this bellow)
+  - Additionally, on pages loaded from IPFS:
+    - Copy canonical IPFS address
+    - Copy shareable URL to resource at a default public gateway (https://ipfs.io)
+    - Pin/unpin IPFS Resource
 - When redirection is on, requests to `https?://*/(ipfs|ipns)/$RESOURCE` are replaced with `http://localhost:8080/(ipfs|ipns)/$RESOURCE`
 - Options menu that let's you customize several parameters:
   - IPFS node host
