@@ -26,10 +26,12 @@ export default class ProfileScreen extends Component {
     port: PropTypes.string,
     isIpfsPage: PropTypes.bool,
     pageUrl: PropTypes.string,
+    pinned: PropTypes.bool,
     onRedirectClick: PropTypes.func,
     onWebUIClick: PropTypes.func,
     onOptionsClick: PropTypes.func,
-    onCopyToClipboard: PropTypes.func
+    onCopyToClipboard: PropTypes.func,
+    onPinClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -38,7 +40,8 @@ export default class ProfileScreen extends Component {
     onRedirectClick () {},
     onWebUIClick () {},
     onOptionsClick () {},
-    onCopyToClipboard () {}
+    onCopyToClipboard () {},
+    onPinClick () {}
   };
 
   render () {
@@ -121,6 +124,11 @@ export default class ProfileScreen extends Component {
             name='Copy canonical address'
             icon='forward'
             onClick={this.props.onCopyToClipboard.bind(null, 'address')}
+            />
+          <IconButton
+            name={this.props.pinned ? 'Unpin resource' : 'Pin resource'}
+            icon={this.props.pinned ? 'cross' : 'star'}
+            onClick={this.props.onPinClick}
             />
         </div>
       </div>

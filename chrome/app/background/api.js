@@ -1,5 +1,6 @@
 /* global chrome  */
 import ipfsAPI from 'ipfs-api'
+import { get } from 'lodash'
 
 const settingsKeys = ['host', 'apiPort', 'apiInterval']
 let settings = {}
@@ -59,6 +60,23 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 
   if (needsRestart) {
     connectToAPI()
+  }
+})
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.method) {
+    const method = get(ipfs, request.method)
+    const args = request.args || []
+
+    args.push(function () {
+      console.log(request.method, 'result', arguments)
+      sendResponse(arguments)
+    })
+
+    console.log('executing', request.method)
+    method.apply(null, args)
+
+    return true
   }
 })
 
