@@ -24,9 +24,14 @@ export default class ProfileScreen extends Component {
     protocolVersion: PropTypes.string,
     host: PropTypes.string,
     port: PropTypes.string,
+    isIpfsPage: PropTypes.bool,
+    pageUrl: PropTypes.string,
+    pinned: PropTypes.bool,
     onRedirectClick: PropTypes.func,
     onWebUIClick: PropTypes.func,
-    onOptionsClick: PropTypes.func
+    onOptionsClick: PropTypes.func,
+    onCopyToClipboard: PropTypes.func,
+    onPinClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -34,7 +39,9 @@ export default class ProfileScreen extends Component {
     location: '',
     onRedirectClick () {},
     onWebUIClick () {},
-    onOptionsClick () {}
+    onOptionsClick () {},
+    onCopyToClipboard () {},
+    onPinClick () {}
   };
 
   render () {
@@ -43,22 +50,26 @@ export default class ProfileScreen extends Component {
         display: 'flex',
         width: '100%',
         height: '100%',
-        backgroundColor: '#19b5fe',
+        backgroundImage: `url(${require('../../../img/stars.png')})`,
+        backgroundSize: 'cover',
+        backgroundPosition: '0 10%',
         color: '#FFFFFF',
         flexDirection: 'column',
         alignItems: 'center'
       },
-      image: {
+      header: {
+        height: this.props.location ? '40px' : '60px'
+      },
+      location: {
         display: 'flex',
         flex: '1',
         color: '#FFFFFF',
-        backgroundImage: `url(${require('../../../img/stars.png')})`,
-        backgroundSize: 'cover',
-        backgroundPosition: '0 0',
         width: '100%',
+        minHeight: '30px',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        padding: '10px 0'
       },
       stats: {
         padding: '20px',
@@ -70,23 +81,72 @@ export default class ProfileScreen extends Component {
         height: '30%',
         justifyContent: 'space-around'
       },
-      footer: {
+      actions: {
         display: 'flex',
         height: '70px',
         justifyContent: 'space-around',
+        backgroundColor: '#19b5fe',
         width: '100%'
+      },
+      pageActions: {
+        wrapper: {
+          width: '100%',
+          backgroundImage: `url(${require('../../../img/stars.png')})`,
+          backgroundSize: 'cover',
+          backgroundPosition: '0 90%'
+        },
+        header: {
+          textAlign: 'center',
+          fontSize: '16px',
+          padding: '10px'
+        },
+        buttons: {
+          display: 'flex',
+          height: '70px',
+          justifyContent: 'space-around',
+          width: '100%'
+        }
       }
     }
 
+    const pageActions = this.props.isIpfsPage ? (
+      <div style={styles.pageActions.wrapper}>
+        <div style={styles.pageActions.header}>
+          Current address actions
+        </div>
+        <div style={styles.pageActions.buttons}>
+          <IconButton
+            name='Copy public url'
+            icon='forward'
+            onClick={this.props.onCopyToClipboard.bind(null, 'public-address')}
+            />
+          <IconButton
+            name='Copy canonical address'
+            icon='forward'
+            onClick={this.props.onCopyToClipboard.bind(null, 'address')}
+            />
+          <IconButton
+            name={this.props.pinned ? 'Unpin resource' : 'Pin resource'}
+            icon={this.props.pinned ? 'cross' : 'star'}
+            onClick={this.props.onPinClick}
+            />
+        </div>
+      </div>
+    ) : null
+
+    const location = this.props.location ? (
+      <div style={styles.location}>
+        <Icon name='location' style={{fontSize: '32px'}}/>
+        <div style={{margin: '0 auto'}}>
+          {this.props.location}
+        </div>
+      </div>
+    ) : null
+
     return (
       <div style={styles.wrapper}>
-        <Header />
-        <div style={styles.image}>
-          <Icon name='location' style={{padding: '10px 0', fontSize: '32px'}}/>
-          <div style={{margin: '0 auto'}}>
-            {this.props.location}
-          </div>
-        </div>
+        <Header style={styles.header}/>
+        {location}
         <div style={styles.stats}>
           <Details
             agentVersion={this.props.agentVersion}
@@ -100,7 +160,7 @@ export default class ProfileScreen extends Component {
             color='#50d2c2'
           />
         </div>
-        <div style={styles.footer}>
+        <div style={styles.actions}>
           <IconButton
             name='Options'
             icon='gear'
@@ -117,6 +177,7 @@ export default class ProfileScreen extends Component {
             onClick={this.props.onRedirectClick}
             />
         </div>
+        {pageActions}
       </div>
     )
   }
