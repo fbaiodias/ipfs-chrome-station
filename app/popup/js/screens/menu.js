@@ -1,7 +1,7 @@
 /* global chrome */
 import React, {Component} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
-import { url as isIPFSUrl } from 'is-ipfs'
+import { url as isIPFSUrl, urlPattern } from 'is-ipfs'
 
 import StartScreen from './menu/start'
 import ProfileScreen from './menu/profile'
@@ -14,7 +14,6 @@ const RUNNING = 'running'
 const STOPPED = 'stopped'
 
 const WEB_UI_URL = 'http://localhost:5001/ipfs/QmRyWyKWmphamkMRnJVjUTzSFSAAZowYP4rnbgnfMXC9Mr'
-const IPFS_PATTERN = /^https?:\/\/[^\/]+\/(ip(f|n)s)\/(\w+)/
 
 function copyToClipboard (str) {
   document.oncopy = (event) => {
@@ -26,14 +25,16 @@ function copyToClipboard (str) {
   document.oncopy = undefined
 }
 
-function parseIpfsUrl (url) {
-  const matches = url.match(IPFS_PATTERN)
-  const hash = matches[3]
-  const address = `/${matches[1]}/${hash}`
+function parseUrl (url) {
+  const matches = url.match(urlPattern)
+  const hash = matches[1] === 'ipfs' ? matches[4] : null
+  const path = matches[3]
+  const address = `/${matches[1]}/${path}`
   const publicUrl = `https://ipfs.io${address}`
 
   return {
     hash,
+    path,
     address,
     publicUrl
   }
@@ -78,7 +79,7 @@ export default class Menu extends Component {
 
       const pageUrl = tabs[0].url
 
-      const { hash } = parseIpfsUrl(pageUrl)
+      const { hash } = parseUrl(pageUrl)
 
       this.setState({
         isIpfsPage: true,
@@ -135,7 +136,7 @@ export default class Menu extends Component {
   }
 
   handleCopyToClipboard (type) {
-    const { address, publicUrl } = parseIpfsUrl(this.state.pageUrl)
+    const { address, publicUrl } = parseUrl(this.state.pageUrl)
 
     switch (type) {
       case 'public-address':
