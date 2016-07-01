@@ -13,8 +13,6 @@ const INITIALIZING = 'initializing'
 const RUNNING = 'running'
 const STOPPED = 'stopped'
 
-const WEB_UI_URL = 'http://localhost:5001/ipfs/QmRyWyKWmphamkMRnJVjUTzSFSAAZowYP4rnbgnfMXC9Mr'
-
 function copyToClipboard (str) {
   document.oncopy = (event) => {
     event.clipboardData.setData('Text', str)
@@ -128,7 +126,7 @@ export default class Menu extends Component {
   }
 
   handleWebUIClick () {
-    chrome.tabs.create({ url: WEB_UI_URL })
+    chrome.tabs.create({ url: `http://localhost:${this.state.apiPort}/webui` })
   }
 
   handleOptionsClick () {
