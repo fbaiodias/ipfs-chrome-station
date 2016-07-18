@@ -51,6 +51,7 @@
     "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
+    "base32": "0.0.6",
     "belle": "^2.0.3",
     "css-box-sizing-border-box": "^0.1.0",
     "css-loader": "^0.23.0",

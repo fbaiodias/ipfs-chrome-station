@@ -1,15 +1,18 @@
 /* global chrome  */
 import url from 'url'
 import { url as isIPFSUrl } from 'is-ipfs'
+import base32 from 'base32'
 
 const settingsKeys = ['redirecting', 'host', 'port']
 let settings = {}
 
-function interceptor (details) {
-  var parsedUrl = url.parse(details.url)
-  if (isIPFSUrl(details.url) && parsedUrl.host.indexOf(settings.host) === -1) {
-    const node = `${settings.host}:${settings.port}`
+const isIPFSCloudUrl = (url) => url.indexOf('ipfs-cloud.dev') !== -1
 
+function interceptor (details) {
+  const node = `${settings.host}:${settings.port}`
+  const parsedUrl = url.parse(details.url)
+
+  if (isIPFSUrl(details.url) && parsedUrl.host.indexOf(settings.host) === -1) {
     parsedUrl.protocol = 'http:'
     parsedUrl.host = node
     parsedUrl.hostname = node
@@ -17,13 +20,36 @@ function interceptor (details) {
     console.log('redirected', details.url, 'to', node)
     return { redirectUrl: localUrl }
   }
+
+  if (isIPFSCloudUrl(details.url)) {
+    const splitted = parsedUrl.host.split('.')
+    const base32Hash = splitted[0] + splitted[1]
+    const ipfsHash = base32.decode(base32Hash)
+    const ipfsPath = `/ipfs/${ipfsHash}${parsedUrl.path}`
+
+    const localUrl = url.format({
+      protocol: 'http:',
+      host: node,
+      pathname: ipfsPath
+    })
+
+    console.log('redirected', details.url, 'to', localUrl)
+    return { redirectUrl: localUrl }
+  }
+
   return
 }
 
 function startInterceptor () {
   console.log('starting interceptor')
   chrome.webRequest.onBeforeRequest.addListener(interceptor,
-    { urls: ['*://*/ipfs/*', '*://*/ipns/*'] },
+    {
+      urls: [
+        '*://*/ipfs/*',
+        '*://*/ipns/*',
+        '*://*.ipfs-cloud.dev/*'
+      ]
+    },
     ['blocking']
   )
 }
