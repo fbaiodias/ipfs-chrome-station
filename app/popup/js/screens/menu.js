@@ -126,7 +126,7 @@ export default class Menu extends Component {
   }
 
   handleWebUIClick () {
-    chrome.tabs.create({ url: `http://localhost:${this.state.apiPort}/webui` })
+    chrome.tabs.create({ url: `http://${this.state.host}:${this.state.apiPort}/webui` })
   }
 
   handleOptionsClick () {
