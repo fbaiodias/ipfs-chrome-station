@@ -16,9 +16,9 @@ function connectToAPI () {
     if (err) return
 
     chrome.storage.local.set({
-      id: peer.Id,
-      agentVersion: peer.AgentVersion,
-      protocolVersion: peer.ProtocolVersion
+      id: peer.id,
+      agentVersion: peer.agentVersion,
+      protocolVersion: peer.protocolVersion
     })
   })
 }
