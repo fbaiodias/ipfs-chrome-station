@@ -10,15 +10,12 @@ import '../../../styles/fonts.less'
 
 @Radium
 export default class StartScreen extends Component {
-
   static propTypes = {
-    onStartClick: PropTypes.func,
-    onCloseClick: PropTypes.func
+    onReportProblemClick: PropTypes.func
   };
 
   static defaultProps = {
-    onStartClick () {},
-    onCloseClick () {}
+    onReportProblemClick () {}
   };
 
   render () {
@@ -30,8 +27,7 @@ export default class StartScreen extends Component {
         backgroundColor: '#19b5fe',
         color: '#FFFFFF',
         flexDirection: 'column',
-        alignItems: 'center',
-        padding: '0 20 20'
+        alignItems: 'center'
       },
       content: {
         display: 'flex',
@@ -42,12 +38,17 @@ export default class StartScreen extends Component {
       text: {
         padding: '40px 0',
         textAlign: 'center'
+      },
+      link: {
+        cursor: 'pointer',
+        textAlign: 'center',
+        textDecoration: 'underline'
       }
     }
 
     return (
       <div style={styles.wrapper}>
-        <Header onCloseClick={this.props.onCloseClick} />
+        <Header />
         <div style={styles.content}>
           <image
            src={require('../../../img/offline-icon.png')}
@@ -56,12 +57,14 @@ export default class StartScreen extends Component {
            style={{margin: '0 auto'}}
           />
           <div style={styles.text}>
-            <p>Oh snap, it looks like your node<br/>
-            is not running yet.</p>
-            <p>Please start it by running<br/>
-            <code>ipfs daemon</code><br/>
-            on your terminal.</p>
+            <p>Oh snap, it looks like your node is not running yet.</p>
+            <p>Please start it by running <code>ipfs daemon</code> on your terminal.</p>
+            <p>
+              Also, please make sure you have CORS enabled, by running <br/>
+              <code>{`ipfs config --json API.HTTPHeaders '{"Access-Control-Allow-Origin": ["*"]}'`}</code>
+            </p>
           </div>
+          <a onClick={this.props.onReportProblemClick} style={styles.link}>Report a problem</a>
         </div>
       </div>
     )

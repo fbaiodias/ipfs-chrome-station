@@ -56,6 +56,7 @@ export default class Menu extends Component {
     this.handleOptionsClick = this.handleOptionsClick.bind(this)
     this.handleCopyToClipboard = this.handleCopyToClipboard.bind(this)
     this.handlePinClick = this.handlePinClick.bind(this)
+    this.handleReportProblemClick = this.handleReportProblemClick.bind(this)
 
     chrome.storage.onChanged.addListener(this.handleStorageChange)
 
@@ -162,6 +163,10 @@ export default class Menu extends Component {
     })
   }
 
+  handleReportProblemClick () {
+    chrome.tabs.create({url: 'https://github.com/xicombd/ipfs-chrome-station/issues'})
+  }
+
   getScreen () {
     switch (this.state.status) {
       case RUNNING:
@@ -188,7 +193,7 @@ export default class Menu extends Component {
       case INITIALIZING:
         return <Loader key='loader-screen' />
       default:
-        return <StartScreen key='start-screen' onStartClick={this._startDaemon}/>
+        return <StartScreen key='start-screen' onReportProblemClick={this.handleReportProblemClick}/>
     }
   }
 
