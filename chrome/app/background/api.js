@@ -34,7 +34,7 @@ function updatePeersCount () {
     }
 
     chrome.storage.local.set({
-      peersCount: res.Strings.length,
+      peersCount: res.length,
       running: true
     })
   })

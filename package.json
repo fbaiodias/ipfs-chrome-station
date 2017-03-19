@@ -55,7 +55,7 @@
     "css-box-sizing-border-box": "^0.1.0",
     "css-loader": "^0.23.0",
     "file-loader": "^0.8.4",
-    "ipfs-api": "^2.11.0",
+    "ipfs-api": "^12.1.7",
     "ipfs-logo": "github:ipfs/logo",
     "is-ipfs": "0.0.4",
     "json-loader": "^0.5.3",
