@@ -26,5 +26,5 @@
     "storage",
     "<all_urls>"
   ],
-  "content_security_policy": "default-src 'self'; script-src 'self'; connect-src *; style-src * 'unsafe-inline'; img-src 'self' data:;"
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; connect-src *; style-src * 'unsafe-inline'; img-src 'self' data:;"
 }
