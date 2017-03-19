@@ -1,6 +1,6 @@
 {
   "name": "ipfs-chrome-station",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Chrome extension that let's you access IPFS urls seamlessly from your local IPFS node, and take a look at its stats.",
   "scripts": {
     "lint": "standard --verbose | snazzy",
