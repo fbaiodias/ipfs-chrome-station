@@ -58,10 +58,10 @@ npm run dev
 npm run build
 ```
 
-### Build & Compress ZIP file
+### Compress ZIP file
 
 ```bash
-# compress build folder to archive.zip
+# compress build folder to build.zip
 npm run compress
 ```
 
