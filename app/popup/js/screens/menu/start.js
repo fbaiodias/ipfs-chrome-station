@@ -51,16 +51,16 @@ export default class StartScreen extends Component {
         <Header />
         <div style={styles.content}>
           <image
-           src={require('../../../img/offline-icon.png')}
-           width='64'
-           height='64'
-           style={{margin: '0 auto'}}
+            src={require('../../../img/offline-icon.png')}
+            width='64'
+            height='64'
+            style={{margin: '0 auto'}}
           />
           <div style={styles.text}>
             <p>Oh snap, it looks like your node is not running yet.</p>
             <p>Please start it by running <code>ipfs daemon</code> on your terminal.</p>
             <p>
-              Also, please make sure you have CORS enabled, by running <br/>
+              Also, please make sure you have CORS enabled, by running <br />
               <code>{`ipfs config --json API.HTTPHeaders '{"Access-Control-Allow-Origin": ["*"]}'`}</code>
             </p>
           </div>

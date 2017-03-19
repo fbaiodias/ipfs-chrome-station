@@ -39,7 +39,6 @@ function parseUrl (url) {
 }
 
 export default class Menu extends Component {
-
   state = {
     status: INITIALIZING,
     connected: false,
@@ -193,7 +192,7 @@ export default class Menu extends Component {
       case INITIALIZING:
         return <Loader key='loader-screen' />
       default:
-        return <StartScreen key='start-screen' onReportProblemClick={this.handleReportProblemClick}/>
+        return <StartScreen key='start-screen' onReportProblemClick={this.handleReportProblemClick} />
     }
   }
 

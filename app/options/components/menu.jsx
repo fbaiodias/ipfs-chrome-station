@@ -5,7 +5,6 @@ import Settings from './settings'
 const settingsKeys = ['redirecting', 'host', 'port', 'apiPort', 'apiInterval']
 
 export default class Menu extends Component {
-
   state = {};
 
   constructor (props) {

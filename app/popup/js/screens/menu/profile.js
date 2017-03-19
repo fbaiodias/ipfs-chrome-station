@@ -15,7 +15,6 @@ import '../../../styles/file-drop.less'
 
 @Radium
 export default class ProfileScreen extends Component {
-
   static propTypes = {
     peers: PropTypes.number,
     location: PropTypes.string,
@@ -136,7 +135,7 @@ export default class ProfileScreen extends Component {
 
     const location = this.props.location ? (
       <div style={styles.location}>
-        <Icon name='location' style={{fontSize: '32px'}}/>
+        <Icon name='location' style={{fontSize: '32px'}} />
         <div style={{margin: '0 auto'}}>
           {this.props.location}
         </div>
@@ -145,7 +144,7 @@ export default class ProfileScreen extends Component {
 
     return (
       <div style={styles.wrapper}>
-        <Header style={styles.header}/>
+        <Header style={styles.header} />
         {location}
         <div style={styles.stats}>
           <Details

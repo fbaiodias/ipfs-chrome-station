@@ -11,7 +11,7 @@ module.exports = function () {
 
   var context = this
   function evalCode (code, context) {
-    return function () { return eval(code) }.call(context) // eslint-disable-line no-eval
+    return (function () { return eval(code) }.call(context)) // eslint-disable-line no-eval
   }
 
   context.hotDownloadUpdateChunk = function (chunkId) { // eslint-disable-line no-unused-vars

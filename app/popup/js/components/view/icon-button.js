@@ -3,7 +3,6 @@ import Radium from 'radium'
 
 @Radium
 export default class IconButton extends Component {
-
   static propTypes = {
     name: PropTypes.string,
     icon: PropTypes.string,
@@ -48,8 +47,7 @@ export default class IconButton extends Component {
         <div
           className={`icon-${this.props.icon}`}
           style={{fontSize: '28px', paddingBottom: '5px', ...this.props.iconStyle}}
-          >
-        </div>
+           />
         {this.props.name}
       </button>
     )

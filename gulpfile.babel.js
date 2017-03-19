@@ -3,7 +3,7 @@ import fs from 'fs'
 import gulp from 'gulp'
 import merge from 'merge-stream'
 import gutil from 'gulp-util'
-import jade from 'gulp-jade'
+import pug from 'gulp-pug'
 import rename from 'gulp-rename'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
@@ -49,8 +49,8 @@ gulp.task('webpack-dev-server', () => {
 })
 
 gulp.task('views:dev', () => {
-  return gulp.src('./chrome/views/*.jade')
-    .pipe(jade({
+  return gulp.src('./chrome/views/*.pug')
+    .pipe(pug({
       locals: {
         env: 'dev',
         devToolsExt: !!process.env.DEVTOOLS_EXT || true
@@ -83,8 +83,8 @@ gulp.task('webpack:build', (callback) => {
 })
 
 gulp.task('views:build', () => {
-  return gulp.src('./chrome/views/*.jade')
-    .pipe(jade({
+  return gulp.src('./chrome/views/*.pug')
+    .pipe(pug({
       locals: { env: 'prod' }
     }))
     .pipe(gulp.dest('./build'))

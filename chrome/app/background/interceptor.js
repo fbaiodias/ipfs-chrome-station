@@ -17,7 +17,6 @@ function interceptor (details) {
     console.log('redirected', details.url, 'to', node)
     return { redirectUrl: localUrl }
   }
-  return
 }
 
 function startInterceptor () {
